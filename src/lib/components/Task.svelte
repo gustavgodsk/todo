@@ -5,7 +5,7 @@
     import { slide } from "svelte/transition";
 
   const dispatch = createEventDispatcher();
-  let {task, updateTaskStatus, removeFromTasks, openMenu} = $props();
+  let {task, updateTaskStatus, removeFromTasks, openMenu, launchFireworks} = $props();
 
   let preventActions = $state(false);
   let isDeleting = $state(false);
@@ -15,12 +15,12 @@
   let deleteBtn = $state(null)
 
 
-  async function completeTask(e){
+  async function toggleTaskStatus(e){
     e.preventDefault();
     e.stopPropagation();
-    if (preventActions || task.done) return;
+    if (preventActions || isDeleting) return;
     preventActions = true;
-    const done = true;
+    const done = !task.done;
     try {
       const response = await fetch("/api/tasks/update-done", {
         method: "PATCH",
@@ -37,6 +37,9 @@
       const newTask = result.task;
       updateTaskStatus(newTask.id, newTask.done)
       addNotification(result, response.status)
+
+      if (newTask.done) launchFireworks(1);
+
     } catch (error) {
       throw new Error(error)
     } finally {
@@ -94,11 +97,11 @@
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="flex flex-row w-full h-full min-w-76 group/task" onclick={(e) => showDelete = false} oncontextmenu={handleRightClick}>
+<div class="flex flex-row select-none w-full h-full min-w-76 group/task" onclick={(e) => showDelete = false} oncontextmenu={handleRightClick}>
   <button
-    class="flex flex-row items-center flex-1 justify-between gap-6  px-8 cursor-pointer {task.done ? 'bg-gray-500' : 'bg-gray-600'}"
-    onclick={completeTask}
-    disabled={task.done || preventActions || isDeleting}
+    class="flex flex-row items-center flex-1 justify-between gap-6  py-2 px-8 cursor-pointer {task.done ? 'bg-transparent hover:bg-black/20' : 'bg-gray-600  shadow-lg dropshadow-lg'}"
+    onclick={toggleTaskStatus}
+    disabled={preventActions || isDeleting}
   >
     <span class="whitespace-nowrap">{task.description}</span>
     <div class="flex group-hover/task:text-green-400 group-hover/task:scale-[115%] transition-all">

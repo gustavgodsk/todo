@@ -2,12 +2,23 @@
     import ProjectCard from '$lib/components/ProjectCard.svelte';
     import { onMount } from 'svelte';
     import { flip } from 'svelte/animate';
-    import { fade } from 'svelte/transition';
+    import { fade, slide } from 'svelte/transition';
     import { addNotification } from '$lib/stores/notifications.js';
+    import { Plus } from 'lucide-svelte';
 
   let {data} = $props();
   let projects = $state([]);
 
+
+
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 
   onMount(()=>{
     projects = data.projects;
@@ -47,15 +58,14 @@
 </script>
 
 <div class=" min-h-screen hide-scrollbar max-h-screen overflow-y-auto">
-    <button class="bg-blue-500 p-40" onclick={addProject}>
-      add project
-    </button>
-    <button class="bg-red-500">Lets go</button>
 
     <div class="grid grid-cols-4 p-10  gap-10 auto-rows-[400px]">
-
-      {#each projects as project (project.id)}
-      <div  animate:flip={{duration:500}} transition:fade>
+      <button class=" flex items-center group cursor-pointer hover:bg-white/10 transition-all justify-center" onclick={addProject}>
+        <Plus class="group-hover:scale-[200%] transiton-all duration-[500ms]"/>
+      </button>
+      {#each projects as project, i (project.id)}
+      <div class="relative group" animate:flip={{duration:500}} transition:slide>
+        <div class="absolute inset-0  group-hover:scale-105 transition-all " style="background-color: {getRandomColor()}; opacity: 0.5"></div>
         <ProjectCard {project} on:deleteProject={removeFromProjects}/>
       </div>
       {/each}
