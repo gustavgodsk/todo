@@ -69,7 +69,8 @@
   let showMenu = $state(false);
   let menuX = $state(0)
   let menuY = $state(0)
-  let menuActions = $state([])
+  let menuActions = $state([]);
+  let focusMode = $state(false);
 
   let fireWorkTimeout = $state();
   // const gradient = "bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r"
@@ -172,6 +173,14 @@
     }
     return color;
   }
+
+  function toggleFocusMode(focused){
+    if (focused === true){
+      focusMode = true;
+    } else if (focused === false){
+      focusMode = false;
+    }
+  }
 </script>
 <div class="absolute h-screen  w-screen overflow-hidden pointer-events-none">
   <Fireworks bind:this={fw} autostart={false} {options} class="fireworks h-full w-full" />
@@ -185,7 +194,7 @@
     <a href="/" class="absolute h-full   top-0 left-0 w-4 hover:bg-blue-200/50 z-[100] hover:blur-xl transition-all py-2 flex items-start">
 
     </a>
-    <p class="text-lg font-bold absolute bottom-0 left-0 px-4 py-2">{project?.title}</p>
+    <p class="text-lg font-bold absolute bottom-0 left-0 px-4 py-2 transition-all {focusMode === false ? "text-white": "text-white/10"}">{project?.title}</p>
 
     <div class="flex flex-row gap-10  {gradient} w-fit h-full">
       <div class="relative p-2 min-h-20 flex flex-col justify-center items-center "  in:slide={{axis:"x"}} onclick={(e) => {
@@ -216,7 +225,7 @@
       {#each fields as field (field.id)}
       <div class="" animate:flip={{duration:500}} in:slide>
         <!-- <ProjectCard {project} on:deleteProject={removeFromProjects}/> -->
-        <FieldCard {field} {removeFromFields} updateTaskStatus={updateTaskStatus} {removeFromTasks} {openMenu} {launchFireworks}/>
+        <FieldCard {field} {removeFromFields} updateTaskStatus={updateTaskStatus} {removeFromTasks} {openMenu} {launchFireworks} {toggleFocusMode}/>
       </div>
       {/each}
 
@@ -227,7 +236,7 @@
 
 
   <div class="absolute relative left-0 h-screen max-h-screen">
-    <button class="absolute top-0 -ml-14 p-2 m-4 text-gray-200 bg-transparent rounded-full   hover:bg-gray-200 hover:border-transparent hover:text-black transition-all cursor-pointer" onclick={() => showCompletedTasks = !showCompletedTasks}>
+    <button class="absolute top-0 -ml-14 p-2 m-4 bg-transparent rounded-full   transition-all cursor-pointer {focusMode === false ? "text-gray-200  hover:bg-gray-200 hover:border-transparent hover:text-black": "text-gray-200/20 hover:border-transparent hover:bg-gray-200/30 hover:text-black"}" onclick={() => showCompletedTasks = !showCompletedTasks}>
       <ListChecks class=" w-6  aspect-square h-auto"/>
     </button>
     {#if showCompletedTasks && completedTasks.length > 0}

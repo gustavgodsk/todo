@@ -7,7 +7,7 @@
     import { fade, slide } from "svelte/transition";
 
 
-  let {field, updateTaskStatus, removeFromTasks, removeFromFields, openMenu, launchFireworks} = $props();
+  let {field, updateTaskStatus, removeFromTasks, removeFromFields, openMenu, launchFireworks, toggleFocusMode} = $props();
   let isDeleting = $state(false);
   let preventActions = $state(false);
   let input = $state(null);
@@ -132,6 +132,7 @@
     }, 500);
 
     expanded = !expanded;
+    toggleFocusMode(expanded)
 
   }
 
@@ -151,7 +152,7 @@
 
 <div  class="flex flex-col h-full w-fit group/fieldcard transition-[width] duration-[500ms]" bind:this={innerContainer}>
   <div class="flex mt-8 mb-8 min-w-76 flex-row group/fieldname relative  transition-[width] duration-[500ms]">
-    <input type="text" class=" text-white  w-full focus:outline-none text-2xl selection:bg-red-700"  spellcheck="false" disabled={preventActions} value={field.name} onchange={handleInputUpdate} onclick={(e) => e.preventDefault()} bind:this={input} onfocus={() => input.select()}>
+    <input type="text" class=" text-white  w-full focus:outline-none text-2xl selection:bg-black"  spellcheck="false" disabled={preventActions} value={field.name} onchange={handleInputUpdate} onclick={(e) => e.preventDefault()} bind:this={input} onfocus={() => input.select()}>
     <button class="absolute top-0 right-0 cursor-pointer hover:text-red-500 text-sm transition-all disabled:bg-gray-200 group-hover/fieldname:w-8 group-hover/fieldname:px-2 py-2 w-0 h-full overflow-hidden duration-[100ms]" disabled={isDeleting || preventActions} onclick={deleteField} tabindex="-1">
       {#if isDeleting}
       <LoaderCircle class="animate-spin w-4 h-4"/>
