@@ -5,22 +5,30 @@
     import { fade } from 'svelte/transition';
     import { addNotification } from '$lib/stores/notifications.js';
     import FieldCard from '$lib/components/FieldCard.svelte';
-    import MoodBoard from '$lib/components/MoodBoard.svelte';
+    import Task from '$lib/components/Task.svelte';
 
   let {data} = $props();
   let project = $state(null);
   let fields = $derived(project?.fields)
-  let scale = $state(null)
-
-  function handleScale(newScale){
-    scale = newScale;
-    console.log(scale)
-  }
-
+  let completedTasks = $derived(getCompletedTasks(fields));
 
   onMount(()=>{
     project = data.project;
   })
+
+  $effect(()=>{
+    console.log(completedTasks)
+  })
+
+  function getCompletedTasks(fields = []){
+    let completedTasks = [];
+    fields.forEach(field => {
+      let tasks = field.tasks;
+      tasks = tasks.filter(task => task.done == true);
+      completedTasks = completedTasks.concat(tasks);
+    });
+    return completedTasks;
+  }
 
   async function addField(){
     const name = "newField";
@@ -72,21 +80,10 @@
   }
 </script>
 
-<MoodBoard {handleScale}>
 
-<div 
-		style="
-			position: absolute;
-			left: {3000 * scale}px;
-			top: {100 * scale}px;
-			width: {120 * scale}px;
-			height: {60 * scale}px;
-			font-size: {14 * scale}px;
-		"
-		class="bg-green-300 border"
->
-<!-- <div class="absolute bg-blue-500/20" style="top: {200*scale}px"> -->
-  <p>{project?.title}</p>
+<div class="flex flex-row">
+  <div class="flex flex-col">
+    <p>{project?.title}</p>
     <button class="bg-blue-500 p-40" onclick={addField}>
       add field
     </button>
@@ -101,9 +98,14 @@
       </div>
       {/each}
     </div>
+  </div>
 
-
-
+  <div class="flex flex-col">
+    <p>CompletedTasks!</p>
+    {#each completedTasks as task}
+      <p>{task?.description}</p>
+      <Task {task} {removeFromTasks}/>
+    {/each}
+  </div>
 
 </div>
-</MoodBoard>

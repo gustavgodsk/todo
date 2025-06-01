@@ -103,7 +103,7 @@
     {/if}  
   </button>
   <div class="flex flex-col gap-2">
-  {#each field.tasks as task}
+  {#each field.tasks.filter(task => task.done == false) as task}
     <Task {task} updateTaskStatus={updateTaskStatus} {removeFromTasks}/>
   {/each}
   </div>
