@@ -2,14 +2,22 @@
     import { addNotification } from "$lib/stores/notifications";
     import { Check, Circle, Trash2 } from "lucide-svelte";
   import { createEventDispatcher } from "svelte";
+    import { slide } from "svelte/transition";
 
   const dispatch = createEventDispatcher();
-  let {task, updateTaskStatus, removeFromTasks} = $props();
+  let {task, updateTaskStatus, removeFromTasks, openMenu} = $props();
 
   let preventActions = $state(false);
   let isDeleting = $state(false);
+  let showDelete = $state(false);
+  let buttonX = $state(null)
+  let buttonY = $state(null)
+  let deleteBtn = $state(null)
 
-  async function completeTask(){
+
+  async function completeTask(e){
+    e.preventDefault();
+    e.stopPropagation();
     if (preventActions || task.done) return;
     preventActions = true;
     const done = true;
@@ -61,24 +69,52 @@
       preventActions = false;
     }
   }
+
+  function handleRightClick(e){
+    e.stopPropagation();
+    e.preventDefault();
+
+    const actions = [];
+
+    const action = {
+      callback: handleDeleteButtonClick,
+      name: "Delete"
+    }
+
+    actions.push(action)
+
+    openMenu(e, actions)
+  }
+
+  function handleDeleteButtonClick(){
+    if (isDeleting || preventActions) return;
+    deleteTask();
+  }
 </script>
 
-<div class="flex flex-row group/task">
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div class="flex flex-row w-full h-full min-w-76 group/task" onclick={(e) => showDelete = false} oncontextmenu={handleRightClick}>
   <button
-    class="flex flex-row items-center justify-between flex-1 p-2 {task.done ? 'bg-gray-500' : 'bg-blue-200'}"
+    class="flex flex-row items-center flex-1 justify-between gap-6  px-8 cursor-pointer {task.done ? 'bg-gray-500' : 'bg-gray-600'}"
     onclick={completeTask}
-    disabled={task.done || preventActions}
+    disabled={task.done || preventActions || isDeleting}
   >
-    <span>{task.description}</span>
-    <div class="flex">
+    <span class="whitespace-nowrap">{task.description}</span>
+    <div class="flex group-hover/task:text-green-400 group-hover/task:scale-[115%] transition-all">
       {#if task.done}
         <Check/>
       {:else}
-      <Circle/>
+        <Circle/>
       {/if}
     </div>
   </button>
-  <button onclick={deleteTask} disabled={isDeleting || preventActions} class="disabled:bg-gray-200">
-      <Trash2 class="flex w-0 group-hover/task:w-10 hover:text-red-500 group-hover/task:p-2 h-auto  transition-all duration-[100ms]"/>
-  </button>
+
 </div>
+
+  <!-- {#if showDelete} -->
+<!--     
+  <button onclick={deleteTask} disabled={isDeleting || preventActions} class="absolute disabled:bg-gray-200 z-[100] hover:text-red-500 transition-all cursor-pointer" style="top: {buttonY}px; left: {buttonX}px;" tabindex="-1" transition:slide bind:this={deleteBtn}>
+      <Trash2 class=""/>
+  </button> -->
+  <!-- {/if} -->

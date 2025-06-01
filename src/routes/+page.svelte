@@ -46,7 +46,7 @@
   
 </script>
 
-<div class="">
+<div class=" min-h-screen hide-scrollbar max-h-screen overflow-y-auto">
     <button class="bg-blue-500 p-40" onclick={addProject}>
       add project
     </button>
@@ -65,3 +65,14 @@
 
 
 </div>
+
+<style>
+  /* Webkit browsers (Chrome, Safari, Edge) */
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
+  }
+</style>

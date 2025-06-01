@@ -7,9 +7,10 @@
 
 </script>
 
-<div class="text-white h-full min-h-screen overflow-hidden w-full {bgGradient}">
+<div class="text-white {bgGradient}">
 {@render children()}
 
 </div>
 
 <Notification/>
+
