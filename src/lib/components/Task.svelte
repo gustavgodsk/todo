@@ -107,11 +107,11 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="flex flex-row select-none w-full h-full min-w-76 group/task" onclick={(e) => showDelete = false} oncontextmenu={handleRightClick}>
   <button
-    class="flex flex-row items-center flex-1 justify-between gap-6  py-2 px-8 cursor-pointer {task.done ? 'bg-transparent hover:bg-black/20 font-light' : 'bg-gray-600  shadow-lg dropshadow-lg'}"
+    class="flex flex-row items-center flex-1 justify-between gap-6  py-4 px-8 cursor-pointer {task.done ? 'bg-transparent hover:bg-black/20 font-light' : 'bg-gray-600  shadow-lg dropshadow-lg'}"
     onclick={toggleTaskStatus}
     disabled={preventActions || isDeleting}
   >
-    <span class="whitespace-nowrap text-white">{task.description}</span>
+    <span class="whitespace-nowrap text-white transition-all {task.done ? "text-white/60 group-hover/task:text-white": ""}">{task.description}</span>
     <div class="flex text-white/60 transition-all {isDeleting || preventActions ? "": "group-hover/task:scale-[115%]"}">
       {#if isCompleting}
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check text-green-400">
