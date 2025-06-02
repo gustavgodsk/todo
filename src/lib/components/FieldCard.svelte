@@ -152,7 +152,7 @@
 
 <div  class="flex flex-col h-full w-fit group/fieldcard transition-[width] duration-[500ms]" bind:this={innerContainer}>
   <div class="flex mt-8 mb-8 min-w-76 flex-row group/fieldname relative  transition-[width] duration-[500ms]">
-    <input type="text" class=" text-white  w-full focus:outline-none text-2xl selection:bg-black"  spellcheck="false" disabled={preventActions} value={field.name} onchange={handleInputUpdate} onclick={(e) => e.preventDefault()} bind:this={input} onfocus={() => input.select()}>
+    <input type="text" class=" text-white tracking-wide  font-bold w-full focus:outline-none text-2xl selection:bg-black"  spellcheck="false" disabled={preventActions} value={field.name} onchange={handleInputUpdate} onclick={(e) => e.preventDefault()} bind:this={input} onfocus={() => input.select()}>
     <button class="absolute top-0 right-0 cursor-pointer hover:text-red-500 text-sm transition-all disabled:bg-gray-200 group-hover/fieldname:w-8 group-hover/fieldname:px-2 py-2 w-0 h-full overflow-hidden duration-[100ms]" disabled={isDeleting || preventActions} onclick={deleteField} tabindex="-1">
       {#if isDeleting}
       <LoaderCircle class="animate-spin w-4 h-4"/>
@@ -162,7 +162,7 @@
     </button>
   </div>
   <button class="w-full flex items-center group/addtask justify-center py-2 cursor-pointer"  onclick={()=> newTaskInput.focus()}>
-    <Plus class="w-0 group-hover/addtask:w-10 transition-all"/>
+    <Plus class="w-8 text-white/20 group-hover/addtask:w-10 group-hover/addtask:text-white transition-all"/>
   </button>
 
     <input type="text" 
@@ -182,7 +182,7 @@
     {/each}
     </div>
 
-    <button class=" h-20 flex items-center hover:text-white text-transparent justify-center  group/expand cursor-pointer" onclick={toggleExpansion}>
+    <button class=" h-20 flex items-center hover:text-white text-white/20 justify-center  group/expand cursor-pointer" onclick={toggleExpansion}>
       <ChevronLeft class="group-hover/expand:mr-6 transition-all"/>
       <ChevronRight class="group-hover/expand:ml-6 transition-all"/>
     </button>

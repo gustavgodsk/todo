@@ -11,6 +11,7 @@
   let accesGained = $state(false)
   let typedKeys = $state([]);
   let isFullscreen = $state(false)
+  let container = $state(null)
 
   onMount(()=>{
     document.addEventListener("keydown", handleKeyDown)
@@ -29,7 +30,7 @@
       checkAccess();
     }
     
-    if (e.code == "KeyF"){
+    if (e.code == "KeyF" && !isFocusedElementTextInput()){
       toggleFullscreen();
     }
   }
@@ -56,11 +57,23 @@
     return Math.random() * 100 + 20
   }
 
-  let container = $state(null)
 
+
+  function isFocusedElementTextInput() {
+    const el = document.activeElement;
+    
+    return (
+      el &&
+      (
+        (el.tagName === 'INPUT' && ['text', 'email', 'password', 'search', 'tel', 'url', 'number'].includes(el.type)) ||
+        el.tagName === 'TEXTAREA' ||
+        el.isContentEditable
+      )
+    );
+  }
 </script>
 
-<div class="text-white max-h-screen overflow-hidden {bgGradient}">
+<div class="text-white max-h-screen overflow-hidden bg-gray-900">
 {#if accesGained}
   
 {@render children()}

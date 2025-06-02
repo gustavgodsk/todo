@@ -240,7 +240,7 @@
       <ListChecks class=" w-6  aspect-square h-auto"/>
     </button>
     {#if showCompletedTasks && completedTasks.length > 0}
-    <div class="flex flex-col h-full  transition-all max-h-screen overflow-y-auto hide-scrollbar bg-emerald-700" transition:slide={{axis:"x"}}>
+    <div class="flex flex-col h-full py-2  transition-all max-h-screen overflow-y-auto hide-scrollbar bg-gradient-to-tr from-[#22c55e] via-[#0e7490] to-[#3b82f6]" transition:slide={{axis:"x"}}>
       {#each completedTasks as task, i (task.id)}
       <div animate:flip>
         <Task {task} {removeFromTasks} {updateTaskStatus} {openMenu} {launchFireworks}/>

@@ -1,1 +1,109 @@
 @import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  body {
+    font-family: "Avenir", sans-serif;
+  }
+}
+ 
+
+@layer utilities {
+  .font-avenir {
+    font-family: "Avenir", sans-serif;
+  }
+}
+
+
+/* LIGHT */
+
+@font-face {
+  font-family: "Avenir";
+  src: url("fonts/Avenir-Light.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100;
+  display: swap;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: url("fonts/Avenir-LightOblique.woff2") format("woff2");
+  font-style: oblique;
+  font-weight: 100;
+  display: swap;
+}
+
+/* MEDIUM */
+@font-face {
+  font-family: "Avenir";
+  src: url("/fonts/Avenir-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  display: swap;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: url("/fonts/Avenir-MediumOblique.woff2") format("woff2");  
+  font-style: oblique;
+  font-weight: 500;
+  display: swap;
+}
+
+/* HEAVY */
+
+@font-face {
+  font-family: "Avenir";
+  src: url("/fonts/Avenir-Heavy.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  display: swap;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: url("/fonts/Avenir-HeavyOblique.woff2") format("woff2");
+  font-style: oblique;
+  font-weight: 700;
+  display: swap;
+}
+
+
+
+/* BLACK */
+
+@font-face {
+  font-family: "Avenir";
+  src: url("/fonts/Avenir-Black.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 900;
+  display: swap;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: url("/fonts/Avenir-BlackOblique.woff2") format("woff2");
+  font-style: oblique;
+  font-weight: 900;
+  display: swap;
+}
+
+/* BOOK */
+
+@font-face {
+  font-family: "Avenir";
+  src: url("/fonts/Avenir-Book.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  display: swap;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: url("/fonts/Avenir-BookOblique.woff2") format("woff2");
+  font-style: oblique;
+  font-weight: 300;
+  display: swap;
+}
