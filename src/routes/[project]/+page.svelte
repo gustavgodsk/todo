@@ -191,7 +191,7 @@
 <div class="flex flex-row  h-screen" oncontextmenu={handleContextMenu}>
   <!-- <div class=""> -->
   <div class="flex flex-col  overflow-x-auto hide-scrollbar "  onwheel={handleWheel}  bind:this={scrollContainer}>
-    <a href="/" class="absolute h-full   top-0 left-0 w-4 hover:bg-blue-200/50 z-[100] hover:blur-xl transition-all py-2 flex items-start">
+    <a href="/" class="absolute h-full   top-0 left-0 w-10 hover:bg-blue-200/50 z-[100] hover:blur-xl transition-all py-2 flex items-start">
 
     </a>
     <p class="text-lg font-bold absolute bottom-0 left-0 px-4 py-2 transition-all {focusMode === false ? "text-white": "text-white/10"}">{project?.title}</p>
@@ -208,7 +208,7 @@
         value="+" 
         spellcheck="false"
 
-        class="text-xl text-center selection:bg-black select-none focus:outline-none"
+        class="text-xl text-center selection:bg-white/50 select-none focus:outline-none"
         onfocus={() => {
           newFieldInput.select()
           if (newFieldInput.value == "+"){

@@ -73,7 +73,7 @@
 <a href="/{project.id}" class="flex flex-col w-full h-full p-10 relative group bg-transparent "
 onmouseenter={() => showDelete = true}
 onmouseleave={() => showDelete = false}>
-  <input type="text" class="focus:outline-none selection:bg-black/90 text-white text-2xl font-bold " disabled={preventActions} value={project.title} onchange={handleInputUpdate} onclick={(e) => e.preventDefault()} bind:this={input} onfocus={(e) => e.target.select()} spellcheck="false">
+  <input type="text" class="focus:outline-none selection:bg-black/50 text-white text-2xl font-bold " disabled={preventActions} value={project.title} onchange={handleInputUpdate} onclick={(e) => e.preventDefault()} bind:this={input} onfocus={(e) => e.target.select()} spellcheck="false">
   <button class="absolute top-0 right-0 p-2 hover:text-red-500 cursor-pointer text-sm transition-all  duration-[200ms]" disabled={isDeleting || preventActions} onclick={deleteProject}>
     {#if showDelete}
     <div class="" transition:slide={{duration:200}}>

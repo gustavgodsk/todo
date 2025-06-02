@@ -44,8 +44,6 @@ export async function GET({url}){
       field.tasks = taskMap[field.id] || [];
     }
 
-    console.log(fields)
-
     return new Response(JSON.stringify({message: "Project found!", project}), {status:200})
   } catch (error) {
     return new Response(JSON.stringify({message: "Could not find project", error}), {status:200})
