@@ -9,12 +9,12 @@ const pool = new Pool({
 export async function POST({request}){
 
   const {description, field_id} = await request.json();
-  console.log(description, field_id)
+  // console.log(description, field_id)
   const client = await pool.connect();
   const done = false;
   try {
     const {rows} = await client.query("INSERT INTO tasks (description, field_id, done) VALUES ($1, $2, $3) RETURNING *", [description, field_id, done]);
-    console.log(rows)
+    // console.log(rows)
 
 
     return new Response(JSON.stringify({message: `Added task ${rows[0].description}`, task: rows[0]}), {status: 200})

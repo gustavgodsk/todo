@@ -225,7 +225,7 @@
       {#each fields as field (field.id)}
       <div class="" animate:flip={{duration:500}} in:slide>
         <!-- <ProjectCard {project} on:deleteProject={removeFromProjects}/> -->
-        <FieldCard {field} {removeFromFields} updateTaskStatus={updateTaskStatus} {removeFromTasks} {openMenu} {launchFireworks} {toggleFocusMode}/>
+        <FieldCard {field} {removeFromFields} updateTaskStatus={updateTaskStatus} {removeFromTasks} {openMenu} {launchFireworks} {toggleFocusMode} {focusMode}/>
       </div>
       {/each}
 

@@ -7,7 +7,7 @@
     import { fade, slide } from "svelte/transition";
 
 
-  let {field, updateTaskStatus, removeFromTasks, removeFromFields, openMenu, launchFireworks, toggleFocusMode} = $props();
+  let {field, updateTaskStatus, removeFromTasks, removeFromFields, openMenu, launchFireworks, toggleFocusMode, focusMode} = $props();
   let isDeleting = $state(false);
   let preventActions = $state(false);
   let input = $state(null);
@@ -119,7 +119,7 @@
       initWidth = container.clientWidth;
       container.style.width = "100vw" 
     } else {
-      container.style.width = `${initWidth}px`
+      container.style.width = `${innerContainer.clientWidth}px`
     }
   })
 
@@ -140,7 +140,7 @@
     const el = e.target;
     if (el == container && centerOnResize == true){
       container.scrollIntoView({ inline: "center" });
-    } else if (el == innerContainer){
+    } else if (el == innerContainer && !focusMode){
       container.style.width = `${innerContainer.clientWidth}px`;
     }
 
