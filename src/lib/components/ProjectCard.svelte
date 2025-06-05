@@ -1,5 +1,5 @@
 <script>
-  import {LoaderCircle, Trash2} from "lucide-svelte"
+  import {ChevronRight, LoaderCircle, Trash2} from "lucide-svelte"
   import { createEventDispatcher } from "svelte";
   import { addNotification } from "$lib/stores/notifications";
     import { fade, slide } from "svelte/transition";
@@ -85,4 +85,10 @@ onmouseleave={() => showDelete = false}>
     </div>
     {/if}
   </button>
+  <div class="grid mt-8 gap-2 grid-cols-[min-content_auto] grid-flow-row">
+    {#each project.fields as field}
+    <ChevronRight class="mr-2 text-white/50"/>
+      <p class="text-white/70">{field.name}</p>
+    {/each}
+  </div>
 </a>
