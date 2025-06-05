@@ -191,6 +191,7 @@
 <div class="flex flex-row  h-screen" oncontextmenu={handleContextMenu}>
   <!-- <div class=""> -->
   <div class="flex flex-col  overflow-x-auto hide-scrollbar "  onwheel={handleWheel}  bind:this={scrollContainer}>
+    <!-- svelte-ignore a11y_consider_explicit_label -->
     <a href="/" class="absolute h-full   top-0 left-0 w-10 hover:bg-blue-200/50 z-[100] hover:blur-xl transition-all py-2 flex items-start">
 
     </a>
